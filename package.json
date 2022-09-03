@@ -1,0 +1,19 @@
+{
+  "name": "witi",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "vite": "^3.0.7",
+    "vitest": "^0.22.1"
+  },
+  "dependencies": {
+    "three": "^0.144.0"
+  }
+}
