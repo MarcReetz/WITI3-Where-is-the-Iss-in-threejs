@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { renderBackground } from "./src/background";
 import { setSun, getPositionSun } from "./src/sun";
 
-const url = "http://api.open-notify.org/iss-now.json";
+const url = "https://api.wheretheiss.at/v1/satellites/25544";
 
 // Our Javascript will go here.
 const scene = new THREE.Scene();
@@ -105,10 +105,10 @@ async function getPosition() {
 
   console.log(jsonResponse);
 
-  if (jsonResponse.message && jsonResponse.message === "success") {
+  if (jsonResponse.longitude && jsonResponse.latitude) {
     updatePosi(
-      jsonResponse.iss_position.longitude,
-      jsonResponse.iss_position.latitude
+      jsonResponse.longitude,
+      jsonResponse.latitude
     );
   } else {
     console.log("Error");
