@@ -20,7 +20,7 @@ const loader = new GLTFLoader();
 let earth;
 
 loader.load(
-  "/earth/earth.glb",
+  "earth/earth.glb",
   function (gltf) {
     earth = gltf.scene;
     earth.scale.set(1, 1, 1);
