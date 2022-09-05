@@ -3,7 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { getPositionIss, toRadians } from "./src/positionsCalc";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { renderBackground } from "./src/background";
-import { setSun, getPositionSun } from "./src/sun";
+import { initSun, setPositionSun } from "./src/sun";
 
 const url = "https://api.wheretheiss.at/v1/satellites/25544";
 
@@ -50,7 +50,7 @@ loader.load(
 );
 
 //LIGHT
-const sun = setSun();
+const sun = initSun();
 scene.add(sun)
 
 const color = 0x000365;
@@ -94,6 +94,7 @@ function animate() {
       opacityPlus = true
     }
   }
+  setPositionSun(sun);
 
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
