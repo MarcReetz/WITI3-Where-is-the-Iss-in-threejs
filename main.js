@@ -7,8 +7,9 @@ import { setSun, getPositionSun } from "./src/sun";
 
 const url = "https://api.wheretheiss.at/v1/satellites/25544";
 
-// Our Javascript will go here.
 const scene = new THREE.Scene();
+
+//CAMERA
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -16,8 +17,22 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 
+camera.position.z = 5;
+camera.rotateX = 90;
+
+//END CAMERA
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(new THREE.Color("#0f1514"));
+document.body.appendChild(renderer.domElement);
+
+
 const loader = new GLTFLoader();
 let earth;
+
+//Correct the position of the landmasses on earth. 
+const earthRotationCorection = 90;
 
 loader.load(
   "./earth/earth.glb",
@@ -25,7 +40,7 @@ loader.load(
     earth = gltf.scene;
     earth.scale.set(1, 1, 1);
     earth.position.set(0, 0, 0);
-    earth.rotation.y += 90;
+    earth.rotation.y = ((earthRotationCorection * Math.PI)/180);
     scene.add(earth);
   },
   undefined,
@@ -33,13 +48,6 @@ loader.load(
     console.error(error);
   }
 );
-
-
-
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor(new THREE.Color("#0f1514"));
-document.body.appendChild(renderer.domElement);
 
 //LIGHT
 const sun = setSun();
@@ -71,6 +79,7 @@ scene.add(sphere);
 
 getPosition();
 
+//ANIMATION LOOP
 let opacityPlus = true;
 
 function animate() {
@@ -89,6 +98,8 @@ function animate() {
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
 }
+
+//END ANIMATION LOOP
 
 function updatePosi(lon, lat) {
   const positions = getPositionIss(1.25, lon, lat);
