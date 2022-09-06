@@ -48,12 +48,14 @@ body {
 }
 
 header{
+  padding: 0 10px;
   display: flex;
   align-items: center;
   height: 50px;
 }
 
 footer{
+  padding: 0 10px;
   display: flex;
   align-self: flex-end;
   align-items: center;
@@ -71,4 +73,8 @@ header{
 #canvasContainer{
   width: 100%;
   height: calc(100vh - 100px);
+}
+
+a{
+  text-decoration: underline;
 }
