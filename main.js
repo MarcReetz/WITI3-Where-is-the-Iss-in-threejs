@@ -22,13 +22,34 @@ camera.rotateX = 90;
 
 //END CAMERA
 
+//LOADING AND INIT
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setClearColor(new THREE.Color("#0f1514"));
-document.body.appendChild(renderer.domElement);
+
+const container = document.getElementById('canvasContainer');
+
+renderer.setSize(container.clientWidth,container.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+container.appendChild(renderer.domElement);
 
 
-const loader = new GLTFLoader();
+const loadingMangager = new THREE.LoadingManager();
+
+const loadingBar = document.getElementById('progressBar')
+const loadingBarContainer = document.getElementById('loadingBarContainer')
+
+loadingMangager.onProgress = (url,number,total) => {
+  loadingBar.value = (number/total) * 100
+}
+
+loadingMangager.onLoad = (url,number,total) => {
+  loadingBarContainer.style.display = 'none';
+}
+
+const loader = new GLTFLoader(loadingMangager);
 let earth;
 
 //Correct the position of the landmasses on earth. 
@@ -48,6 +69,8 @@ loader.load(
     console.error(error);
   }
 );
+
+//END LOADING AND INIT
 
 //LIGHT
 const sun = initSun();
@@ -103,7 +126,7 @@ function animate() {
 //END ANIMATION LOOP
 
 function updatePosi(lon, lat) {
-  const positions = getPositionIss(1.25, lon, lat);
+  const positions = getPositionIss(1.25, lon,lat);
   sphere.position.set(positions[0], positions[1], positions[2]);
 }
 

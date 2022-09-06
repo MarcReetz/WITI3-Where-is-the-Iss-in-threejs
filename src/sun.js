@@ -16,19 +16,18 @@ export function setPositionSun (sun) {
   const secondsInDay = 60 * 60 * 24;
 
   const time = new Date();
-  let curSecondsAtGren = time.getSeconds();
-  curSecondsAtGren += time.getMinutes() * 60;
-  curSecondsAtGren += time.getHours() * 60 * 60;
 
-  const sunDegreePosition = (degrees/secondsInDay) * curSecondsAtGren;
+  var tDate = new Date();
 
-  console.log(sunDegreePosition)
+  let curSecondsAtGren = time.getUTCSeconds();
+  curSecondsAtGren += time.getUTCMinutes() * 60;
+  curSecondsAtGren += time.getUTCHours() * 60 * 60;
+
+  let sunDegreePosition = (-(degrees/secondsInDay) * curSecondsAtGren) -180;
 
   let z = sunDistance * Math.cos(toRadians(sunDegreePosition));
   let y = 0
   let x = sunDistance * Math.sin(toRadians(sunDegreePosition));
-
-  console.log("z: " + z + " x:" + x);
 
   sun.position.set(x,y,z);
 }
