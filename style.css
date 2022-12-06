@@ -78,3 +78,7 @@ header{
 a{
   text-decoration: underline;
 }
+
+.legal {
+  margin: 5px;
+}
